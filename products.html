@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyeglasses - VisionKart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        .breadcrumb a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #ff6b35;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: white;
+            padding: 2rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .page-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-header p {
+            color: #718096;
+            font-size: 0.95rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+        
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+        
+        .filter-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .filter-option input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        
+        .filter-option label {
+            font-size: 0.9rem;
+            color: #4a5568;
+            cursor: pointer;
+        }
+        
+        /* Product Grid */
+        .products-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .sort-dropdown {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            background: white;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .product-info {
+            padding: 1.25rem;
+        }
+        
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #2d3748;
+        }
+        
+        .product-type {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+        
+        .product-rating {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+            margin-right: 0.3rem;
+        }
+        
+        .view-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: background 0.3s;
+        }
+        
+        .view-btn:hover {
+            background: #e85a28;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 20px 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GTM DataLayer Initialization -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        // Push page view
+        dataLayer.push({
+            event: 'page_view',
+            page_title: 'Eyeglasses - VisionKart',
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">VisionKart</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="products.html?category=eyeglasses">Eyeglasses</a></li>
+                    <li><a href="products.html?category=sunglasses">Sunglasses</a></li>
+                    <li><a href="#contact-lenses">Contact Lenses</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn">🔍</button>
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <button class="icon-btn">👤</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a> > <span>Eyeglasses</span>
+        </div>
+    </div>
+    
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-container">
+            <h1>Eyeglasses for Men & Women</h1>
+            <p id="product-count">2,847 products</p>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filter-section">
+                <h3>Frame Type</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="full-rim">
+                    <label for="full-rim">Full-Rim</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="half-rim">
+                    <label for="half-rim">Half-Rim</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="rimless">
+                    <label for="rimless">Rimless</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3>Price Range</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="under-1000">
+                    <label for="under-1000">Under ₹1,000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="1000-2000">
+                    <label for="1000-2000">₹1,000 - ₹2,000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="above-2000">
+                    <label for="above-2000">₹2,000+</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3>Frame Shape</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="round">
+                    <label for="round">Round</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="square">
+                    <label for="square">Square</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="cat-eye">
+                    <label for="cat-eye">Cat-Eye</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="aviator">
+                    <label for="aviator">Aviator</label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h3>Brand</h3>
+                <div class="filter-option">
+                    <input type="checkbox" id="visionkart">
+                    <label for="visionkart">VisionKart</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="elite">
+                    <label for="elite">Elite</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="classic">
+                    <label for="classic">Classic</label>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Products Section -->
+        <div class="products-section">
+            <div class="products-header">
+                <div>
+                    <strong id="product-count-display">12 Products</strong>
+                </div>
+                <select class="sort-dropdown">
+                    <option>Sort by: Popularity</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                </select>
+            </div>
+            
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be rendered via JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About VisionKart</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#stores">Store Locator</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#returns">Returns Policy</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: support@visionkart.com</li>
+                    <li>Phone: +91-1800-123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VisionKart. Demo site for portfolio purposes only.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Product Data
+        const products = [
+            { id: 'VK-001', name: 'Classic Round Eyeglasses', type: 'Full-Rim', category: 'Eyeglasses', price: 1799, originalPrice: 2499, rating: 4.5, reviews: 2500 },
+            { id: 'VK-002', name: 'Modern Square Frame', type: 'Full-Rim', category: 'Eyeglasses', price: 1899, originalPrice: 0, rating: 4.6, reviews: 2104 },
+            { id: 'VK-003', name: 'Aviator Gold Frame', type: 'Full-Rim', category: 'Eyeglasses', price: 2199, originalPrice: 2999, rating: 4.8, reviews: 3247 },
+            { id: 'VK-004', name: 'Cat-Eye Fashion Frame', type: 'Full-Rim', category: 'Eyeglasses', price: 1699, originalPrice: 2299, rating: 4.7, reviews: 1856 },
+            { id: 'VK-005', name: 'Blue Light Filter Glasses', type: 'Full-Rim', category: 'Eyeglasses', price: 1999, originalPrice: 0, rating: 4.9, reviews: 4102 },
+            { id: 'VK-006', name: 'Retro Round Sunglasses', type: 'Full-Rim', category: 'Sunglasses', price: 1599, originalPrice: 2099, rating: 4.4, reviews: 1234 },
+            { id: 'VK-007', name: 'Sport Wraparound Frame', type: 'Half-Rim', category: 'Eyeglasses', price: 2399, originalPrice: 0, rating: 4.6, reviews: 890 },
+            { id: 'VK-008', name: 'Elegant Half-Rim', type: 'Half-Rim', category: 'Eyeglasses', price: 2099, originalPrice: 2799, rating: 4.7, reviews: 1567 },
+            { id: 'VK-009', name: 'Minimalist Rimless', type: 'Rimless', category: 'Eyeglasses', price: 2499, originalPrice: 3299, rating: 4.8, reviews: 2345 },
+            { id: 'VK-010', name: 'Bold Square Frame', type: 'Full-Rim', category: 'Eyeglasses', price: 1799, originalPrice: 0, rating: 4.5, reviews: 1890 },
+            { id: 'VK-011', name: 'Vintage Round Glasses', type: 'Full-Rim', category: 'Eyeglasses', price: 1899, originalPrice: 2499, rating: 4.6, reviews: 2678 },
+            { id: 'VK-012', name: 'Premium Titanium Frame', type: 'Rimless', category: 'Eyeglasses', price: 3499, originalPrice: 4999, rating: 4.9, reviews: 1456 }
+        ];
+        
+        // Render Products
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map((product, index) => `
+                <div class="product-card">
+                    <div class="product-image">👓</div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-type">${product.type}</div>
+                        <div class="product-price">
+                            ₹${product.price.toLocaleString()}
+                            ${product.originalPrice ? `<span class="original-price">₹${product.originalPrice.toLocaleString()}</span>` : ''}
+                        </div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★★</span>
+                            ${product.rating} (${product.reviews.toLocaleString()})
+                        </div>
+                        <button class="view-btn" onclick="viewProduct('${product.id}', '${product.name}', ${product.price}, ${index})">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Push view_item_list event
+            dataLayer.push({
+                event: 'view_item_list',
+                ecommerce: {
+                    item_list_id: 'eyeglasses_category',
+                    item_list_name: 'Eyeglasses Category',
+                    items: products.map((product, index) => ({
+                        item_id: product.id,
+                        item_name: product.name,
+                        item_category: product.category,
+                        item_category2: product.type,
+                        item_brand: 'VisionKart',
+                        price: product.price,
+                        index: index
+                    }))
+                }
+            });
+        }
+        
+        // View Product (select_item event)
+        function viewProduct(itemId, itemName, price, index) {
+            dataLayer.push({
+                event: 'select_item',
+                ecommerce: {
+                    item_list_id: 'eyeglasses_category',
+                    item_list_name: 'Eyeglasses Category',
+                    items: [{
+                        item_id: itemId,
+                        item_name: itemName,
+                        item_category: 'Eyeglasses',
+                        item_brand: 'VisionKart',
+                        price: price,
+                        index: index
+                    }]
+                }
+            });
+            
+            // Navigate to product page
+            window.location.href = `product.html?id=${itemId}`;
+        }
+        
+        // Update Cart Count
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('visionkart_cart') || '[]');
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

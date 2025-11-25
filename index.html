@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionKart - Find Your Perfect Frame</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            color: #333;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 20px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #e85a28;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+        
+        .hero-features {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+        }
+        
+        /* Featured Categories */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: #2d3748;
+            font-weight: 700;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .category-card {
+            background: #f7fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .category-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .category-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+        
+        .category-content p {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        /* Best Sellers */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .product-info {
+            padding: 1.25rem;
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-rating {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+            margin-right: 0.3rem;
+        }
+        
+        /* Features Bar */
+        .features-bar {
+            background: #f7fafc;
+            padding: 2.5rem 0;
+            margin: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #2d3748;
+        }
+        
+        .feature-item p {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 20px 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GTM DataLayer Initialization -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        // Initialize cart in session storage (not persistent across sessions)
+        if (!sessionStorage.getItem('visionkart_cart')) {
+            sessionStorage.setItem('visionkart_cart', JSON.stringify([]));
+        }
+        
+        // Push initial page view
+        dataLayer.push({
+            event: 'page_view',
+            page_title: 'VisionKart - Homepage',
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">VisionKart</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="products.html?category=eyeglasses">Eyeglasses</a></li>
+                    <li><a href="products.html?category=sunglasses">Sunglasses</a></li>
+                    <li><a href="#contact-lenses">Contact Lenses</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn">🔍</button>
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <button class="icon-btn">👤</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Frame</h1>
+            <p>Discover eyewear that matches your style and personality</p>
+            <a href="products.html?category=eyeglasses" class="btn" onclick="trackHeroClick()">Shop Eyeglasses</a>
+            <div class="hero-features">
+                Free Home Try-On | 14-Day Returns | 1-Year Warranty
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Categories -->
+    <section class="container">
+        <h2 class="section-title">Shop By Category</h2>
+        <div class="categories-grid">
+            <a href="products.html?category=eyeglasses" class="category-card" onclick="trackCategoryClick('Eyeglasses', 0)">
+                <div class="category-image">👓</div>
+                <div class="category-content">
+                    <h3>Eyeglasses</h3>
+                    <p>Classic & modern frames</p>
+                    <span class="btn">Shop Now</span>
+                </div>
+            </a>
+            
+            <a href="products.html?category=sunglasses" class="category-card" onclick="trackCategoryClick('Sunglasses', 1)">
+                <div class="category-image">🕶️</div>
+                <div class="category-content">
+                    <h3>Sunglasses</h3>
+                    <p>UV protection & style</p>
+                    <span class="btn">Shop Now</span>
+                </div>
+            </a>
+            
+            <a href="products.html?category=blue-light" class="category-card" onclick="trackCategoryClick('Blue Light Glasses', 2)">
+                <div class="category-image">💻</div>
+                <div class="category-content">
+                    <h3>Blue Light Glasses</h3>
+                    <p>Digital eye strain relief</p>
+                    <span class="btn">Shop Now</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Best Sellers Section -->
+    <section class="container">
+        <h2 class="section-title">Trending This Week</h2>
+        <div class="products-grid" id="best-sellers">
+            <!-- Products will be rendered via JavaScript -->
+        </div>
+    </section>
+    
+    <!-- Features Bar -->
+    <section class="features-bar">
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                <h4>Free Shipping</h4>
+                <p>On orders above ₹1,000</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">↩️</div>
+                <h4>14-Day Returns</h4>
+                <p>Hassle-free returns</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <h4>1-Year Warranty</h4>
+                <p>On all products</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <h4>Virtual Try-On</h4>
+                <p>See before you buy</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About VisionKart</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#stores">Store Locator</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#returns">Returns Policy</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: support@visionkart.com</li>
+                    <li>Phone: +91-1800-123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VisionKart. Demo site for portfolio purposes only.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Product Data
+        const bestSellers = [
+            { id: 'VK-001', name: 'Classic Aviator', category: 'Eyeglasses', price: 1799, rating: 4.8, reviews: 3247 },
+            { id: 'VK-002', name: 'Modern Square Frame', category: 'Eyeglasses', price: 1899, rating: 4.6, reviews: 2104 },
+            { id: 'VK-003', name: 'Vintage Round', category: 'Eyeglasses', price: 1699, rating: 4.7, reviews: 1856 },
+            { id: 'VK-004', name: 'Cat-Eye Fashion', category: 'Sunglasses', price: 2199, rating: 4.9, reviews: 2891 }
+        ];
+        
+        // Render Best Sellers
+        function renderBestSellers() {
+            const grid = document.getElementById('best-sellers');
+            grid.innerHTML = bestSellers.map((product, index) => `
+                <a href="product.html?id=${product.id}" class="product-card" onclick="trackProductClick('${product.id}', '${product.name}', ${product.price}, ${index}, event)">
+                    <div class="product-image">👓</div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">₹${product.price.toLocaleString()}</div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★★</span>
+                            ${product.rating} (${product.reviews.toLocaleString()})
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+            
+            // Push view_item_list event
+            dataLayer.push({
+                event: 'view_item_list',
+                ecommerce: {
+                    item_list_id: 'homepage_bestsellers',
+                    item_list_name: 'Homepage Best Sellers',
+                    items: bestSellers.map((product, index) => ({
+                        item_id: product.id,
+                        item_name: product.name,
+                        item_category: product.category,
+                        item_brand: 'VisionKart',
+                        price: product.price,
+                        index: index
+                    }))
+                }
+            });
+        }
+        
+        // Track Product Click (select_item event)
+        function trackProductClick(itemId, itemName, price, index, event) {
+            dataLayer.push({
+                event: 'select_item',
+                ecommerce: {
+                    item_list_id: 'homepage_bestsellers',
+                    item_list_name: 'Homepage Best Sellers',
+                    items: [{
+                        item_id: itemId,
+                        item_name: itemName,
+                        item_category: 'Eyeglasses',
+                        item_brand: 'VisionKart',
+                        price: price,
+                        index: index
+                    }]
+                }
+            });
+        }
+        
+        // Track Hero CTA Click
+        function trackHeroClick() {
+            dataLayer.push({
+                event: 'select_promotion',
+                ecommerce: {
+                    creative_name: 'Hero Banner - Find Your Perfect Frame',
+                    creative_slot: 'hero_section',
+                    promotion_id: 'HERO_001',
+                    promotion_name: 'Homepage Hero'
+                }
+            });
+        }
+        
+        // Track Category Click
+        function trackCategoryClick(categoryName, index) {
+            dataLayer.push({
+                event: 'select_promotion',
+                ecommerce: {
+                    creative_name: categoryName + ' Category Card',
+                    creative_slot: 'category_section',
+                    promotion_id: 'CAT_00' + (index + 1),
+                    promotion_name: categoryName
+                }
+            });
+        }
+        
+        // Update Cart Count
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('visionkart_cart') || '[]');
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBestSellers();
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

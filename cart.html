@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - VisionKart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Cart Section */
+        .cart-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-count {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+        
+        /* Cart Items */
+        .cart-items {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+        
+        .empty-cart h2 {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-cart .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-variant {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-price {
+            font-size: 1.3rem;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-top: 0.75rem;
+        }
+        
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.25rem;
+        }
+        
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #4a5568;
+            transition: color 0.3s;
+        }
+        
+        .qty-btn:hover {
+            color: #ff6b35;
+        }
+        
+        .qty-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e53e3e;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+        
+        .remove-btn:hover {
+            color: #c53030;
+        }
+        
+        .item-subtotal {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .summary-label {
+            color: #718096;
+        }
+        
+        .summary-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .summary-value.free {
+            color: #48bb78;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 2px solid #e2e8f0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .total-label {
+            color: #2d3748;
+        }
+        
+        .total-value {
+            color: #ff6b35;
+        }
+        
+        .promo-section {
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .promo-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .promo-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .promo-btn {
+            padding: 0.75rem 1.5rem;
+            background: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background: #e85a28;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+        
+        .trust-signals {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        .trust-icon {
+            font-size: 1.2rem;
+        }
+        
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .continue-shopping:hover {
+            color: #ff6b35;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 20px 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+            
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: 1rem;
+            }
+            
+            .item-actions {
+                grid-column: 2;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GTM DataLayer Initialization -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        // Push page view
+        dataLayer.push({
+            event: 'page_view',
+            page_title: 'Shopping Cart - VisionKart',
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">VisionKart</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="products.html?category=eyeglasses">Eyeglasses</a></li>
+                    <li><a href="products.html?category=sunglasses">Sunglasses</a></li>
+                    <li><a href="#contact-lenses">Contact Lenses</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn">🔍</button>
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <button class="icon-btn">👤</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <h1 class="page-title">Shopping Cart</h1>
+        <p class="item-count" id="item-count-text">0 items</p>
+        
+        <div class="cart-container">
+            <!-- Cart Items -->
+            <div class="cart-items" id="cart-items-container">
+                <!-- Cart items will be rendered here -->
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Subtotal:</span>
+                    <span class="summary-value" id="subtotal">₹0</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Shipping:</span>
+                    <span class="summary-value free" id="shipping">FREE</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span class="summary-label">Tax (GST 18%):</span>
+                    <span class="summary-value" id="tax">₹0</span>
+                </div>
+                
+                <div class="summary-total">
+                    <span class="total-label">Total:</span>
+                    <span class="total-value" id="total">₹0</span>
+                </div>
+                
+                <div class="promo-section">
+                    <div class="promo-input-group">
+                        <input type="text" class="promo-input" placeholder="Enter promo code">
+                        <button class="promo-btn">Apply</button>
+                    </div>
+                </div>
+                
+                <button class="checkout-btn" onclick="proceedToCheckout()">PROCEED TO CHECKOUT</button>
+                
+                <div class="trust-signals">
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        Secure Checkout
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        14-Day Easy Returns
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        1-Year Warranty
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="products.html" class="continue-shopping">← Continue Shopping</a>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About VisionKart</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#stores">Store Locator</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#returns">Returns Policy</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: support@visionkart.com</li>
+                    <li>Phone: +91-1800-123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VisionKart. Demo site for portfolio purposes only.</p>
+        </div>
+    </footer>
+    
+    <script>
+        let cart = [];
+        
+        // Load cart from session
+        function loadCart() {
+            cart = JSON.parse(sessionStorage.getItem('visionkart_cart') || '[]');
+            renderCart();
+            updateCartSummary();
+            updateCartCount();
+        }
+        
+        // Render cart items
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h2>Your cart is empty</h2>
+                        <p>Add some products to get started!</p>
+                        <a href="products.html" class="btn">Shop Now</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div class="item-image">👓</div>
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-variant">Frame Color: ${item.variant}</div>
+                        <div class="item-variant">Lens Type: ${item.lensType}</div>
+                        <div class="item-price">₹${item.price.toLocaleString()}</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn" onclick="updateItemQuantity(${index}, -1)">−</button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateItemQuantity(${index}, 1)">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        <div class="item-subtotal">₹${(item.price * item.quantity).toLocaleString()}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update item count text
+            document.getElementById('item-count-text').textContent = 
+                cart.length === 1 ? '1 item' : `${cart.length} items`;
+            
+            // Push view_cart event
+            const cartValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            dataLayer.push({
+                event: 'view_cart',
+                ecommerce: {
+                    currency: 'INR',
+                    value: cartValue,
+                    items: cart.map((item, index) => ({
+                        item_id: item.id,
+                        item_name: item.name,
+                        item_category: item.category,
+                        item_variant: item.variant + ' - ' + item.lensType,
+                        item_brand: 'VisionKart',
+                        price: item.price,
+                        quantity: item.quantity,
+                        index: index
+                    }))
+                }
+            });
+        }
+        
+        // Update item quantity
+        function updateItemQuantity(index, change) {
+            if (cart[index].quantity + change >= 1 && cart[index].quantity + change <= 10) {
+                cart[index].quantity += change;
+                sessionStorage.setItem('visionkart_cart', JSON.stringify(cart));
+                renderCart();
+                updateCartSummary();
+                updateCartCount();
+            }
+        }
+        
+        // Remove item from cart
+        function removeItem(index) {
+            const removedItem = cart[index];
+            
+            // Push remove_from_cart event
+            dataLayer.push({
+                event: 'remove_from_cart',
+                ecommerce: {
+                    currency: 'INR',
+                    value: removedItem.price * removedItem.quantity,
+                    items: [{
+                        item_id: removedItem.id,
+                        item_name: removedItem.name,
+                        item_category: removedItem.category,
+                        item_variant: removedItem.variant + ' - ' + removedItem.lensType,
+                        item_brand: 'VisionKart',
+                        price: removedItem.price,
+                        quantity: removedItem.quantity
+                    }]
+                }
+            });
+            
+            cart.splice(index, 1);
+            sessionStorage.setItem('visionkart_cart', JSON.stringify(cart));
+            renderCart();
+            updateCartSummary();
+            updateCartCount();
+        }
+        
+        // Update cart summary
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = Math.round(subtotal * 0.18);
+            const total = subtotal + tax;
+            
+            document.getElementById('subtotal').textContent = '₹' + subtotal.toLocaleString();
+            document.getElementById('tax').textContent = '₹' + tax.toLocaleString();
+            document.getElementById('total').textContent = '₹' + total.toLocaleString();
+        }
+        
+        // Update cart count badge
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        
+        // Proceed to checkout (begin_checkout event)
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = Math.round(subtotal * 0.18);
+            const total = subtotal + tax;
+            
+            // Push begin_checkout event (KEY EVENT)
+            dataLayer.push({
+                event: 'begin_checkout',
+                ecommerce: {
+                    currency: 'INR',
+                    value: total,
+                    items: cart.map((item, index) => ({
+                        item_id: item.id,
+                        item_name: item.name,
+                        item_category: item.category,
+                        item_variant: item.variant + ' - ' + item.lensType,
+                        item_brand: 'VisionKart',
+                        price: item.price,
+                        quantity: item.quantity,
+                        index: index
+                    }))
+                }
+            });
+            
+            // Store order details for thank you page
+            const orderDetails = {
+                orderId: 'VK' + Date.now(),
+                items: cart,
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                shipping: 0
+            };
+            
+            sessionStorage.setItem('visionkart_order', JSON.stringify(orderDetails));
+            
+            // Redirect to thank you page
+            window.location.href = 'thankyou.html?order_id=' + orderDetails.orderId;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+        });
+    </script>
+</body>
+</html>

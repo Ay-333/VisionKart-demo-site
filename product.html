@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Aviator Eyeglasses - VisionKart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            position: relative;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: white;
+            padding: 1rem 0;
+        }
+        
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        
+        .breadcrumb a {
+            color: #718096;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #ff6b35;
+        }
+        
+        /* Product Section */
+        .product-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .product-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        /* Product Images */
+        .product-images {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .thumbnail {
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #ff6b35;
+        }
+        
+        .virtual-tryon {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 6px;
+            text-align: center;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        /* Product Details */
+        .product-details h1 {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-rating {
+            font-size: 0.95rem;
+            color: #718096;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            margin-right: 0.3rem;
+        }
+        
+        .price-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #a0aec0;
+            font-size: 1.2rem;
+            margin-right: 0.75rem;
+        }
+        
+        .current-price {
+            font-size: 2.2rem;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        /* Specifications */
+        .specs-section {
+            margin-bottom: 2rem;
+        }
+        
+        .specs-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .spec-label {
+            color: #718096;
+        }
+        
+        .spec-value {
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        /* Options */
+        .options-section {
+            margin-bottom: 2rem;
+        }
+        
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .option-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #2d3748;
+        }
+        
+        .lens-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .radio-option:hover {
+            border-color: #ff6b35;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-right: 0.75rem;
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .color-chip {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .color-chip:hover, .color-chip.active {
+            border-color: #ff6b35;
+            transform: scale(1.1);
+        }
+        
+        .color-gold { background: linear-gradient(135deg, #ffd700, #ffed4e); }
+        .color-silver { background: linear-gradient(135deg, #c0c0c0, #e8e8e8); }
+        .color-black { background: linear-gradient(135deg, #2d3748, #1a202c); }
+        .color-rose { background: linear-gradient(135deg, #ff6b9d, #c64896); }
+        
+        /* Quantity */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .qty-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .qty-btn:hover {
+            background: #f7fafc;
+            border-color: #ff6b35;
+        }
+        
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .btn-primary {
+            flex: 2;
+            padding: 1rem;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #e85a28;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-secondary {
+            flex: 1;
+            padding: 1rem;
+            background: white;
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #fff5f0;
+        }
+        
+        /* Product Features */
+        .features-list {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        
+        .features-list ul {
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* Shipping Info */
+        .shipping-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #e6fffa;
+            border-left: 4px solid #48bb78;
+            border-radius: 4px;
+        }
+        
+        .shipping-info p {
+            color: #2d3748;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 20px 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-images {
+                position: static;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GTM DataLayer Initialization -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || 'VK-003';
+        
+        // Product data
+        const productData = {
+            'VK-001': { name: 'Classic Round Eyeglasses', price: 1799, originalPrice: 2499, category: 'Eyeglasses', variant: 'Gold' },
+            'VK-002': { name: 'Modern Square Frame', price: 1899, originalPrice: 0, category: 'Eyeglasses', variant: 'Black' },
+            'VK-003': { name: 'Classic Aviator Eyeglasses', price: 1799, originalPrice: 2499, category: 'Eyeglasses', variant: 'Gold' },
+            'VK-004': { name: 'Cat-Eye Fashion Frame', price: 1699, originalPrice: 2299, category: 'Eyeglasses', variant: 'Black' },
+            'VK-005': { name: 'Blue Light Filter Glasses', price: 1999, originalPrice: 0, category: 'Eyeglasses', variant: 'Tortoise' },
+            'VK-006': { name: 'Retro Round Sunglasses', price: 1599, originalPrice: 2099, category: 'Sunglasses', variant: 'Gold' },
+            'VK-007': { name: 'Sport Wraparound Frame', price: 2399, originalPrice: 0, category: 'Eyeglasses', variant: 'Black' },
+            'VK-008': { name: 'Elegant Half-Rim', price: 2099, originalPrice: 2799, category: 'Eyeglasses', variant: 'Silver' },
+            'VK-009': { name: 'Minimalist Rimless', price: 2499, originalPrice: 3299, category: 'Eyeglasses', variant: 'Gold' },
+            'VK-010': { name: 'Bold Square Frame', price: 1799, originalPrice: 0, category: 'Eyeglasses', variant: 'Black' },
+            'VK-011': { name: 'Vintage Round Glasses', price: 1899, originalPrice: 2499, category: 'Eyeglasses', variant: 'Rose Gold' },
+            'VK-012': { name: 'Premium Titanium Frame', price: 3499, originalPrice: 4999, category: 'Eyeglasses', variant: 'Silver' }
+        };
+        
+        const product = productData[productId] || productData['VK-003'];
+        
+        // Push page view
+        dataLayer.push({
+            event: 'page_view',
+            page_title: product.name + ' - VisionKart',
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+        
+        // Push view_item event (CRITICAL)
+        dataLayer.push({
+            event: 'view_item',
+            ecommerce: {
+                currency: 'INR',
+                value: product.price,
+                items: [{
+                    item_id: productId,
+                    item_name: product.name,
+                    item_category: product.category,
+                    item_variant: product.variant,
+                    item_brand: 'VisionKart',
+                    price: product.price,
+                    quantity: 1
+                }]
+            }
+        });
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">VisionKart</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="products.html?category=eyeglasses">Eyeglasses</a></li>
+                    <li><a href="products.html?category=sunglasses">Sunglasses</a></li>
+                    <li><a href="#contact-lenses">Contact Lenses</a></li>
+                    <li><a href="#offers">Offers</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <button class="icon-btn">🔍</button>
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+                <button class="icon-btn">👤</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a> > <a href="products.html">Eyeglasses</a> > <span id="breadcrumb-product">Classic Aviator Eyeglasses</span>
+        </div>
+    </div>
+    
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="product-container">
+            <!-- Product Images -->
+            <div class="product-images">
+                <div class="main-image" id="main-image">👓</div>
+                <div class="thumbnail-images">
+                    <div class="thumbnail active">👓</div>
+                    <div class="thumbnail">👓</div>
+                    <div class="thumbnail">👓</div>
+                    <div class="thumbnail">👓</div>
+                </div>
+                <div class="virtual-tryon">
+                    📱 <strong>Virtual Try-On Available</strong><br>
+                    <small>See how it looks on you</small>
+                </div>
+            </div>
+            
+            <!-- Product Details -->
+            <div class="product-details">
+                <h1 id="product-name">Classic Aviator Eyeglasses</h1>
+                <div class="product-rating">
+                    <span class="rating-stars">★★★★★</span>
+                    4.8 (3,247 reviews)
+                </div>
+                
+                <div class="price-section">
+                    <span class="original-price" id="original-price">₹2,499</span>
+                    <span class="current-price" id="current-price">₹1,799</span>
+                    <span class="discount-badge">28% OFF</span>
+                </div>
+                
+                <!-- Specifications -->
+                <div class="specs-section">
+                    <h3>Frame Specifications</h3>
+                    <div class="spec-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">Frame Type:</span>
+                            <span class="spec-value">Full-Rim</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Frame Shape:</span>
+                            <span class="spec-value">Aviator</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Material:</span>
+                            <span class="spec-value">Stainless Steel</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Size:</span>
+                            <span class="spec-value">Medium</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lens Options -->
+                <div class="options-section">
+                    <div class="option-group">
+                        <label class="option-label">Lens Type</label>
+                        <div class="lens-options">
+                            <div class="radio-option">
+                                <input type="radio" id="clear" name="lens" value="0" checked>
+                                <label for="clear">Clear Lenses (Included)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="blue-light" name="lens" value="500">
+                                <label for="blue-light">Blue Light Blocking (+₹500)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="photochromic" name="lens" value="800">
+                                <label for="photochromic">Photochromic (+₹800)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label class="option-label">Frame Color</label>
+                        <div class="color-options">
+                            <div class="color-chip color-gold active" data-color="Gold"></div>
+                            <div class="color-chip color-silver" data-color="Silver"></div>
+                            <div class="color-chip color-black" data-color="Black"></div>
+                            <div class="color-chip color-rose" data-color="Rose Gold"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label class="option-label">Quantity</label>
+                        <div class="quantity-selector">
+                            <button class="qty-btn" onclick="updateQuantity(-1)">−</button>
+                            <input type="number" class="qty-input" id="quantity" value="1" min="1" max="10" readonly>
+                            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="cta-buttons">
+                    <button class="btn-primary" onclick="addToCart()">ADD TO CART</button>
+                    <button class="btn-secondary" onclick="buyNow()">Buy Now</button>
+                </div>
+                
+                <!-- Product Features -->
+                <div class="features-list">
+                    <ul>
+                        <li>UV400 Protection</li>
+                        <li>Anti-Glare Coating</li>
+                        <li>Free Home Trial</li>
+                        <li>1-Year Warranty</li>
+                        <li>Free Shipping on orders above ₹1,000</li>
+                    </ul>
+                </div>
+                
+                <!-- Shipping Info -->
+                <div class="shipping-info">
+                    <p><strong>🚚 Delivery by:</strong> November 25, 2025</p>
+                    <p><strong>📦 Free Shipping</strong> on this order</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About VisionKart</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#stores">Store Locator</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#help">Help Center</a></li>
+                    <li><a href="#returns">Returns Policy</a></li>
+                    <li><a href="#shipping">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Email: support@visionkart.com</li>
+                    <li>Phone: +91-1800-123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 VisionKart. Demo site for portfolio purposes only.</p>
+        </div>
+    </footer>
+    
+    <script>
+        let selectedColor = 'Gold';
+        let selectedLensPrice = 0;
+        let quantity = 1;
+        
+        // Update quantity
+        function updateQuantity(change) {
+            const qtyInput = document.getElementById('quantity');
+            let newQty = parseInt(qtyInput.value) + change;
+            if (newQty >= 1 && newQty <= 10) {
+                qtyInput.value = newQty;
+                quantity = newQty;
+            }
+        }
+        
+        // Color selection
+        document.querySelectorAll('.color-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                selectedColor = this.getAttribute('data-color');
+            });
+        });
+        
+        // Lens option selection
+        document.querySelectorAll('input[name="lens"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                selectedLensPrice = parseInt(this.value);
+            });
+        });
+        
+        // Add to Cart (CRITICAL EVENT)
+        function addToCart() {
+            const finalPrice = product.price + selectedLensPrice;
+            
+            // Create cart item
+            const cartItem = {
+                id: productId,
+                name: product.name,
+                price: finalPrice,
+                basePrice: product.price,
+                variant: selectedColor,
+                lensType: selectedLensPrice === 0 ? 'Clear' : selectedLensPrice === 500 ? 'Blue Light Blocking' : 'Photochromic',
+                quantity: quantity,
+                category: product.category
+            };
+            
+            // Get existing cart
+            let cart = JSON.parse(sessionStorage.getItem('visionkart_cart') || '[]');
+            
+            // Check if item already exists
+            const existingIndex = cart.findIndex(item => 
+                item.id === cartItem.id && 
+                item.variant === cartItem.variant && 
+                item.lensType === cartItem.lensType
+            );
+            
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push(cartItem);
+            }
+            
+            // Save to session
+            sessionStorage.setItem('visionkart_cart', JSON.stringify(cart));
+            
+            // Push add_to_cart event (KEY EVENT)
+            dataLayer.push({
+                event: 'add_to_cart',
+                ecommerce: {
+                    currency: 'INR',
+                    value: finalPrice * quantity,
+                    items: [{
+                        item_id: productId,
+                        item_name: product.name,
+                        item_category: product.category,
+                        item_variant: selectedColor + ' - ' + cartItem.lensType,
+                        item_brand: 'VisionKart',
+                        price: finalPrice,
+                        quantity: quantity
+                    }]
+                }
+            });
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show confirmation
+            alert('✓ Added to cart successfully!');
+        }
+        
+        // Buy Now
+        function buyNow() {
+            addToCart();
+            window.location.href = 'cart.html';
+        }
+        
+        // Update Cart Count
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('visionkart_cart') || '[]');
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set product name
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('breadcrumb-product').textContent = product.name;
+            document.getElementById('current-price').textContent = '₹' + product.price.toLocaleString();
+            
+            if (product.originalPrice) {
+                document.getElementById('original-price').textContent = '₹' + product.originalPrice.toLocaleString();
+            } else {
+                document.getElementById('original-price').style.display = 'none';
+            }
+            
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - VisionKart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f7fafc;
+        }
+        
+        /* Simplified Header */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        /* Success Section */
+        .success-section {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            margin: 0 auto 2rem;
+            box-shadow: 0 10px 30px rgba(72, 187, 120, 0.3);
+        }
+        
+        .success-title {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .success-subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            margin-bottom: 2rem;
+        }
+        
+        .order-details-box {
+            background: white;
+            border: 2px solid #48bb78;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .order-detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #718096;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .email-confirmation {
+            background: #e6fffa;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #234e52;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-details {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-price {
+            font-size: 1rem;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        
+        .pricing-breakdown {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+        
+        .price-label {
+            color: #718096;
+        }
+        
+        .price-value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .price-value.free {
+            color: #48bb78;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 0.75rem;
+            border-top: 2px solid #e2e8f0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .total-label {
+            color: #2d3748;
+        }
+        
+        .total-value {
+            color: #ff6b35;
+        }
+        
+        /* Delivery Info */
+        .delivery-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+        
+        .delivery-date {
+            font-size: 1.1rem;
+            color: #48bb78;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .address-box {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        
+        /* What's Next */
+        .whats-next {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+        
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-desc {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+        
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #e85a28;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #cbd5e0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 2rem 20px;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-bottom {
+            color: #cbd5e0;
+            font-size: 0.85rem;
+            padding-top: 1rem;
+            border-top: 1px solid #4a5568;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .success-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GTM DataLayer Initialization & Purchase Event -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        // Get order details from session
+        const orderDetails = JSON.parse(sessionStorage.getItem('visionkart_order') || '{}');
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('order_id') || orderDetails.orderId || 'VK' + Date.now();
+        
+        // Push page view
+        dataLayer.push({
+            event: 'page_view',
+            page_title: 'Order Confirmation - VisionKart',
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+        
+        // Push PURCHASE event (MOST CRITICAL EVENT)
+        if (orderDetails && orderDetails.items) {
+            dataLayer.push({
+                event: 'purchase',
+                ecommerce: {
+                    transaction_id: orderId,
+                    value: orderDetails.total,
+                    tax: orderDetails.tax,
+                    shipping: orderDetails.shipping || 0,
+                    currency: 'INR',
+                    items: orderDetails.items.map((item, index) => ({
+                        item_id: item.id,
+                        item_name: item.name,
+                        item_category: item.category,
+                        item_variant: item.variant + ' - ' + item.lensType,
+                        item_brand: 'VisionKart',
+                        price: item.price,
+                        quantity: item.quantity,
+                        index: index
+                    }))
+                }
+            });
+        }
+    </script>
+    
+    <!-- Header -->
+    <header class="header">
+        <a href="index.html" class="logo">VisionKart</a>
+    </header>
+    
+    <!-- Success Section -->
+    <section class="success-section">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Order Placed Successfully!</h1>
+        <p class="success-subtitle">Thank you for shopping with VisionKart</p>
+        
+        <div class="order-details-box">
+            <div class="order-detail-row">
+                <span class="detail-label">Order Number:</span>
+                <span class="detail-value" id="order-number">#VK20250001</span>
+            </div>
+            <div class="order-detail-row">
+                <span class="detail-label">Order Date:</span>
+                <span class="detail-value" id="order-date">November 18, 2025</span>
+            </div>
+            
+            <div class="email-confirmation">
+                📧 We've sent a confirmation email to <strong>your.email@example.com</strong>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Order Summary -->
+    <section class="success-section">
+        <div class="order-summary">
+            <h2 class="summary-title">Items Ordered</h2>
+            <div id="order-items">
+                <!-- Order items will be rendered here -->
+            </div>
+            
+            <div class="pricing-breakdown">
+                <div class="price-row">
+                    <span class="price-label">Subtotal:</span>
+                    <span class="price-value" id="subtotal-value">₹3,698</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Shipping:</span>
+                    <span class="price-value free">FREE</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">GST (18%):</span>
+                    <span class="price-value" id="tax-value">₹665</span>
+                </div>
+                <div class="total-row">
+                    <span class="total-label">Order Total:</span>
+                    <span class="total-value" id="total-value">₹4,363</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Delivery Information -->
+    <section class="success-section">
+        <div class="delivery-section">
+            <h2 class="section-title">Delivery Information</h2>
+            <p class="delivery-date">📦 Estimated Delivery: <span id="delivery-date">November 25, 2025</span></p>
+            
+            <h3 style="margin-bottom: 0.75rem; color: #4a5568;">Shipping Address:</h3>
+            <div class="address-box">
+                <strong>John Doe</strong><br>
+                123 MG Road, Connaught Place<br>
+                New Delhi, 110001<br>
+                India<br>
+                Phone: +91-98765-43210
+            </div>
+        </div>
+    </section>
+    
+    <!-- What's Next -->
+    <section class="success-section">
+        <div class="whats-next">
+            <h2 class="section-title" style="text-align: center;">What Happens Next?</h2>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon">📦</div>
+                    <div class="step-title">Order Processing</div>
+                    <p class="step-desc">We're preparing your order for shipment</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">🚚</div>
+                    <div class="step-title">Track Shipment</div>
+                    <p class="step-desc">You'll receive tracking details via email</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">💬</div>
+                    <div class="step-title">Need Help?</div>
+                    <p class="step-desc">Our support team is here for you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Buttons -->
+    <section class="success-section">
+        <div class="cta-buttons">
+            <a href="#track" class="btn btn-primary">Track Your Order</a>
+            <a href="index.html" class="btn btn-secondary" onclick="clearCart()">Continue Shopping</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#help">Help Center</a>
+                <a href="#returns">Returns</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#track">Track Order</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VisionKart. Demo site for portfolio purposes only.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Render order items
+        function renderOrderItems() {
+            const container = document.getElementById('order-items');
+            
+            if (!orderDetails.items || orderDetails.items.length === 0) {
+                // Default order if no session data
+                container.innerHTML = `
+                    <div class="order-item">
+                        <div class="item-image">👓</div>
+                        <div class="item-info">
+                            <div class="item-name">Classic Aviator Eyeglasses</div>
+                            <div class="item-details">Frame Color: Gold | Lens: Blue Light Blocking</div>
+                            <div class="item-price">₹1,799 × 1</div>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-image">👓</div>
+                        <div class="item-info">
+                            <div class="item-name">Modern Square Frame</div>
+                            <div class="item-details">Frame Color: Black | Lens: Clear</div>
+                            <div class="item-price">₹1,899 × 1</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orderDetails.items.map(item => `
+                <div class="order-item">
+                    <div class="item-image">👓</div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-details">Frame Color: ${item.variant} | Lens: ${item.lensType}</div>
+                        <div class="item-price">₹${item.price.toLocaleString()} × ${item.quantity}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update pricing
+            document.getElementById('subtotal-value').textContent = '₹' + orderDetails.subtotal.toLocaleString();
+            document.getElementById('tax-value').textContent = '₹' + orderDetails.tax.toLocaleString();
+            document.getElementById('total-value').textContent = '₹' + orderDetails.total.toLocaleString();
+        }
+        
+        // Set order details
+        function setOrderDetails() {
+            document.getElementById('order-number').textContent = '#' + orderId;
+            
+            const today = new Date();
+            document.getElementById('order-date').textContent = today.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            const deliveryDate = new Date(today);
+            deliveryDate.setDate(deliveryDate.getDate() + 7);
+            document.getElementById('delivery-date').textContent = deliveryDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        // Clear cart
+        function clearCart() {
+            sessionStorage.removeItem('visionkart_cart');
+            sessionStorage.removeItem('visionkart_order');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderOrderItems();
+            setOrderDetails();
+            
+            // Clear cart after successful order
+            setTimeout(clearCart, 1000);
+        });
+    </script>
+</body>
+</html>
